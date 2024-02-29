@@ -9,6 +9,8 @@
   <title>本地构建成功 | 一只熊的小黑屋</title>
   <meta name="author" content="熊卡">
   
+  <meta name="description" content="#Hello World测试一下1测试一下2测试一下3测试一下4测试一下5测试一下6测试一下7测试一下8测试一下9测试一下10"> 
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -70,20 +72,26 @@
 		<ul class="nav navbar-nav">
 		  
 		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>归档
+			<a href="/general" title="万物皆有足迹">
+			  <i class=""></i>Preview
 			</a>
 		  </li>
 		  
 		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>分类
+			<a href="/categories" title="光影穿梭缝隙">
+			  <i class=""></i>Tag
 			</a>
 		  </li>
 		  
 		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>关于
+			<a href="/other" title="闲来碎碎念">
+			  <i class=""></i>Other
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="关于小熊">
+			  <i class=""></i>About
 			</a>
 		  </li>
 		  
@@ -117,10 +125,13 @@
 	<div class="mypage">		
 	  		
 
-	  
+	  <p>#Hello World<br>测试一下1<br>测试一下2<br>测试一下3<br>测试一下4<br>测试一下5<br>测试一下6<br>测试一下7<br>测试一下8<br>测试一下9<br>测试一下10</p>
+<span id="more"></span>
+<p>测试一下11<br>测试一下12<br>测试一下1<br>测试一下2<br>测试一下3<br>测试一下4<br>测试一下5<br>测试一下6<br>测试一下7<br>测试一下8<br>测试一下9<br>测试一下10<br>测试一下11<br>测试一下12</p>
+
 	  <div class="article-footer-copyright">
 
-    本博客所有文章除特殊声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank"> CC BY-NC-SA 4.0 许可协议，转载请注明来源！</a>
+    本博客所有文章除特殊声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank"> CC BY-NC-SA 4.0 许可协议</a>，转载请注明来源！
 </div>
 
 	</div>
@@ -142,12 +153,37 @@
 	<!-- comment -->
 	<!--
 <section id="comment">
-    <h2 class="title">Comments</h2>
+    <h2 class="title">留言</h2>
 
     
 </section>
 
 -->
+	
+		<section id="comments" class="comments">
+			<style>
+			.comments{margin:30px;padding:10px;background:rgb(0, 0, 0)}
+			@media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#000}}
+			</style>
+			<div id="vcomment" class="comment"></div>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var valineConfig = {"enable":true,"appId":"xxx","appKey":"xxx","placeholder":"","visitor":false,"avatar":"monsterid","requiredFields":["nick","mail"],"pageView":false}
+valineConfig.el='#vcomment';
+new Valine(valineConfig);
+    // new Valine({
+    //     el: '#vcomment',
+    //     appId: "",
+    //     appKey: "",
+    //     placeholder: "",
+    //     avatar:"monsterid",
+    //     visitor: "false",
+    //     requiredFields: "nick,mail".split(','),
+    // });
+</script>
+
+		</section>
 	
 	
 	
@@ -168,8 +204,27 @@
 
 	<!-- categories -->
     
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Type1/">Type1<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Test1/">Test1<span>1</span></a></li> <li><a href="/tags/Test2/">Test2<span>1</span></a></li>
+    </ul>
+	</div>
 		
 
 	<!-- toc -->
