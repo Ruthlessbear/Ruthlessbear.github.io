@@ -131,11 +131,11 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2024/02/28/层级分级/本地构建成功/" >本地构建成功</a>
+			<a href="/2024/03/09/Lua/Lua_OPP/" >Lua中关于元表的浅谈和面向对象的实现</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
-		<div class="date">post @ 2024-02-28  </div>
+		<div class="date">post @ 2024-03-09  </div>
 		</div>
 	</div>
 	
@@ -145,13 +145,15 @@
   <div class="row">
 	
 	
-		<p>#Hello World</p>
-<p>图床测试↓</p>
-<p><img src="https://bearblog-1324659404.cos.ap-shanghai.myqcloud.com/blogtest.jpg" style = "margin:0"></br></p>
-<p>测试一下1<br>测试一下2<br>测试一下3<br>测试一下4<br>测试一下5<br>测试一下6<br>测试一下7<br>测试一下8<br>测试一下9<br>测试一下10
+		<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​	Lua在很早之前接触过，那时候还是在实习，然而当时并没有感受到Lua所带来的魅力。后续项目的热更框架都是基于C#，再加上HybridCLR的出现，让我一度忽视了这一门语言。最近回过头学习Lua，被其语言的简洁性和创造性给直呼给力，就像是一堆简洁的积木，可以搭出各种你想象的模样。</p>
+<p>​	使用Lua编写的过程中，遇到了一些元表和OOP相关的问题，于是有了本文。</p>
+<h3 id="元表"><a href="#元表" class="headerlink" title="元表"></a>元表</h3><p>​	在Lua初始化的时候，会将元表的元方法所对应的字符串，以枚举类型定义，赋值给global_State当中，并且会标记为不可回收，这些全局状态中的字符串，将会一直用得到。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">luaT_init</span> <span class="params">(lua_State *L)</span> </span>&#123;</span><br><span class="line">  <span class="type">static</span> <span class="type">const</span> <span class="type">char</span> *<span class="type">const</span> luaT_eventname[] = &#123;  <span class="comment">/* ORDER TM */</span></span><br><span class="line">    <span class="string">&quot;__index&quot;</span>, <span class="string">&quot;__newindex&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__gc&quot;</span>, <span class="string">&quot;__mode&quot;</span>, <span class="string">&quot;__len&quot;</span>, <span class="string">&quot;__eq&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__add&quot;</span>, <span class="string">&quot;__sub&quot;</span>, <span class="string">&quot;__mul&quot;</span>, <span class="string">&quot;__mod&quot;</span>, <span class="string">&quot;__pow&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__div&quot;</span>, <span class="string">&quot;__idiv&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__band&quot;</span>, <span class="string">&quot;__bor&quot;</span>, <span class="string">&quot;__bxor&quot;</span>, <span class="string">&quot;__shl&quot;</span>, <span class="string">&quot;__shr&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__unm&quot;</span>, <span class="string">&quot;__bnot&quot;</span>, <span class="string">&quot;__lt&quot;</span>, <span class="string">&quot;__le&quot;</span>,</span><br><span class="line">    <span class="string">&quot;__concat&quot;</span>, <span class="string">&quot;__call&quot;</span>, <span class="string">&quot;__close&quot;</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line">  <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;TM_N; i++) &#123;</span><br><span class="line">    <span class="built_in">G</span>(L)-&gt;tmname[i] = <span class="built_in">luaS_new</span>(L, luaT_eventname[i]);</span><br><span class="line">    <span class="built_in">luaC_fix</span>(L, <span class="built_in">obj2gco</span>(<span class="built_in">G</span>(L)-&gt;tmname[i]));  <span class="comment">/* never collect these names */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​	当Lua虚拟机从一张table中查询数据的时候，会调用到luaV_gettable函数，从中可以看到对元表__index元方法的调用逻辑：
 	
 	</div>
-  <a type="button" href="/2024/02/28/层级分级/本地构建成功/#more" class="btn btn-default more">阅读此文</a>
+  <a type="button" href="/2024/03/09/Lua/Lua_OPP/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -192,7 +194,7 @@
 		<h4>分类</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/Type1/">Type1<span>1</span></a></li>
+			<li><a href="/categories/Programming-Language/">Programming Language<span>1</span></a></li>
 		
 		</ul>
 	</div>
@@ -203,9 +205,9 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Test1/">Test1<span>1</span></a></li>
+			<li><a href="/tags/OOP/">OOP<span>1</span></a></li>
 		
-			<li><a href="/tags/Test2/">Test2<span>1</span></a></li>
+			<li><a href="/tags/Lua/">Lua<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -219,7 +221,7 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2024/02/28/层级分级/本地构建成功/" ><i class="fa fa-file-o"></i>本地构建成功</a>
+        <a href="/2024/03/09/Lua/Lua_OPP/" ><i class="fa fa-file-o"></i>Lua中关于元表的浅谈和面向对象的实现</a>
       </li>
     
   </ul>
